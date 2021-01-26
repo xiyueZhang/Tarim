@@ -19,6 +19,7 @@ namespace Tarim_test
             VIBDATABASE
         }
         DataPath _GetButtonPath;
+        string path = "E:\\临时软件";
         public Tarim()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace Tarim_test
             AptWindowSize();
             PaintTreeView(path);
         }
-        string path = "E:\\临时软件";
+
         private void Make_TreeList_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog FilePath = new FolderBrowserDialog

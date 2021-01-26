@@ -14,10 +14,17 @@ namespace Tarim_test
     {
         private void AptWindowSize()
         {
-            GridDdatalabel.Location = new System.Drawing.Point(10, Size.Height-60);
-            MySQLdataGridView.Size = new System.Drawing.Size(Size.Width - this.MySQLdataGridView.Location.X - 20,
-                Size.Height  - MySQLdataGridView.Location.Y - 60);
-            NavicattreeView.Size = new System.Drawing.Size(380, Size.Height - NavicattreeView.Location.Y - 60);
+            try
+            {
+                GridDdatalabel.Location = new System.Drawing.Point(10, Size.Height - 60);
+                MySQLdataGridView.Size = new System.Drawing.Size(Size.Width - this.MySQLdataGridView.Location.X - 20,
+                    Size.Height - MySQLdataGridView.Location.Y - 60);
+                NavicattreeView.Size = new System.Drawing.Size(380, Size.Height - NavicattreeView.Location.Y - 60);
+            }
+            catch
+            {
+                GridDdatalabel.Text = "不要太小";
+            }
         }
     }
 }

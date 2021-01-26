@@ -218,7 +218,7 @@ namespace Tarim_test
 
                 int nodecount = DatabaseNodes.Count();//获得对象数量
 
-                //循环文件夹
+                //循环database
                 for (int i = 0; i < nodecount; i++)
                 {
                     NavicattreeView.Nodes.Add(DatabaseNodes[i]);
@@ -234,7 +234,7 @@ namespace Tarim_test
         private bool GetMultiNode(TreeNode treeNode, string database)
         {
             string[] tableNodes = GetTables(database);
-            int tableNodescount = tableNodes.Count();//获得文件夹对象数量
+            int tableNodescount = tableNodes.Count();//获得table对象数量
 
             if (tableNodescount == 0)
             { return false; }

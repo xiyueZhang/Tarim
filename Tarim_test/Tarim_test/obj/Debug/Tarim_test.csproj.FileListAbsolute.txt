@@ -1,4 +1,3 @@
-C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim_test.csprojAssemblyReference.cache
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim_test.Tarim.resources
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim_test.Properties.Resources.resources
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim_test.csproj.GenerateResource.cache
@@ -33,3 +32,4 @@ C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim.exe.manifest
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim.application
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim.exe
 C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim.pdb
+C:\Users\87286\Desktop\Tarim_test\Tarim_test\obj\Debug\Tarim_test.csprojAssemblyReference.cache
