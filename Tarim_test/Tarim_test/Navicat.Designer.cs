@@ -106,20 +106,20 @@
             this.UploadDataMenuItem,
             this.DownloadDataMenuItem});
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(74, 38);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(74, 35);
             this.ToolStripMenuItem.Text = "菜单";
             // 
             // UploadDataMenuItem
             // 
             this.UploadDataMenuItem.Name = "UploadDataMenuItem";
-            this.UploadDataMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.UploadDataMenuItem.Size = new System.Drawing.Size(208, 38);
             this.UploadDataMenuItem.Text = "上传数据";
             this.UploadDataMenuItem.Click += new System.EventHandler(this.UploadDataMenuItem_Click);
             // 
             // DownloadDataMenuItem
             // 
             this.DownloadDataMenuItem.Name = "DownloadDataMenuItem";
-            this.DownloadDataMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.DownloadDataMenuItem.Size = new System.Drawing.Size(208, 38);
             this.DownloadDataMenuItem.Text = "下载数据";
             this.DownloadDataMenuItem.Click += new System.EventHandler(this.DownloadDataMenuItem_Click);
             // 

@@ -20,7 +20,7 @@ namespace Tarim_test
         {
             public string DatabaseName;
             public string TableName;
-            public string ColumnName;
+            public string FieldName;
             public string IDName;
         }
         DataPath datapath = new DataPath();
@@ -35,7 +35,8 @@ namespace Tarim_test
 
         private void NavicattreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Level != 0)
+            //此处会有默认点击Bug，会产生点击第一个数据库bug造成的事件，表的level=1
+            if (e.Node.Level == 1)
             {
                 MySQLdataGridView.DataSource = null;
 
@@ -51,6 +52,17 @@ namespace Tarim_test
                 DataSet ds = GetTableData(datapath.DatabaseName, datapath.TableName);
                 MySQLdataGridView.DataSource = ds.Tables[0];
             }
+            if (e.Node.Level == 3)
+            {
+                string path = e.Node.FullPath;
+                string[] fullpath = path.Split('\\');
+                MessageBox.Show(path);
+                int pathLen = fullpath.Count();
+                datapath.IDName = fullpath[pathLen - 1];
+                datapath.FieldName = fullpath[pathLen - 2];
+                datapath.TableName = fullpath[pathLen - 3];
+                datapath.DatabaseName = fullpath[pathLen - 4];
+            }
 
         }
 
@@ -62,8 +74,9 @@ namespace Tarim_test
         //获得选定的表中的字段名和ID
         private void MySQLdataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            GridDdatalabel.Text = MySQLdataGridView.RowCount.ToString() +"  "+
-                MySQLdataGridView.ToString();
+            GridDdatalabel.Text = MySQLdataGridView.Columns[e.ColumnIndex].HeaderText + "  "+
+                MySQLdataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+            /*
             //try
             //{
             //    datapath.ColumnName = MySQLdataGridView.Columns[e.ColumnIndex].HeaderText;
@@ -82,18 +95,17 @@ namespace Tarim_test
             //{
             //    MessageBox.Show("请点击正确位置");
             //}
+            */
         }
 
         private void CreateDatabasebutton_Click(object sender, EventArgs e)
         {
             CreateMysqlDB("Tarim");
-
         }
 
         private void CreateTablebutton_Click(object sender, EventArgs e)
         {
-            TableName();
-            
+            CreatTableName(); 
         }
 
         private void UploadDataMenuItem_Click(object sender, EventArgs e)

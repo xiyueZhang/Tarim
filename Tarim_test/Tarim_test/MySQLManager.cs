@@ -95,7 +95,7 @@ namespace Tarim_test
 
             }
         }
-        private void TableName()
+        private void CreatTableName()
         {
             string Path= "E:\\临时软件";
             FolderBrowserDialog FilePath = new FolderBrowserDialog
@@ -120,23 +120,23 @@ namespace Tarim_test
                 try
                 {
                     string Colunpath = Path + "\\" + dir[i].Name;
-                    string columnName = ColumnName(Colunpath, dir[i].Name.Remove(dir[i].Name.IndexOf('#')));
+                    string columnName = FiledsName(Colunpath, dir[i].Name.Remove(dir[i].Name.IndexOf('#')));
                     AlterTableExample("tarim", dir[i].Name.Remove(dir[i].Name.IndexOf('#')), columnName);
                 }
                 
                 catch
                 {
                     string Colunpath = Path + "\\" + dir[i].Name;
-                    string columnName = ColumnName(Colunpath, dir[i].Name);
+                    string columnName = FiledsName(Colunpath, dir[i].Name);
                     AlterTableExample("tarim", dir[i].Name, columnName);
                 }
             }
         }
-        private string ColumnName(string path,string table )
+        private string FiledsName(string path,string table )
         {
             DirectoryInfo dirs = new DirectoryInfo(path); //获得程序所在路径的目录对象
             DirectoryInfo[] dir = dirs.GetDirectories();//获得目录下文件夹对象
-            string ColumnName = "ALTER TABLE "+ table;
+            string FiledsName = "ALTER TABLE "+ table;
             FileInfo[] file = dirs.GetFiles();//获得目录下文件对象
             int dircount = dir.Count();//获得文件夹对象数量
             int filecount = file.Count();//获得文件对象数量
@@ -145,12 +145,12 @@ namespace Tarim_test
             //循环文件夹
             for (int i = 0; i < dircount; i++)
             {
-                ColumnName = ColumnName + " ADD "+dir[i].Name+ " blob,";
-
+                FiledsName = FiledsName + " ADD "+dir[i].Name+ " blob,";
             }
-            ColumnName = ColumnName.Substring(0, ColumnName.Length - 1);
-            MessageBox.Show(ColumnName);
-            return ColumnName;
+            //删去最后的一个逗号
+            FiledsName = FiledsName.Substring(0, FiledsName.Length - 1);
+            MessageBox.Show(FiledsName);
+            return FiledsName;
         }
 
         public bool DataUploadDatabase(string tableName,string fieldName)
@@ -206,7 +206,7 @@ namespace Tarim_test
                 CharacterSet = "utf8"
             };
             conn = new MySqlConnection(sqlstring.ConnectionString);
-            string readStr = "select "+ fieldName + " from "+ tableName + " where time =2;";
+            string readStr = "select "+ fieldName + " from "+ tableName + " where ID = 2;";
             MySqlCommand cmd = new MySqlCommand(readStr, conn);
             try
             {

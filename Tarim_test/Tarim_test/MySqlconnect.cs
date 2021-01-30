@@ -111,10 +111,8 @@ namespace Tarim_test
             if (OpenConnection(database))
             {
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MessageBox.Show(sql);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 dataReader.Read();
-                MessageBox.Show("" + dataReader[0]);
                 return dataReader;
             }
             return null;
@@ -171,7 +169,6 @@ namespace Tarim_test
                 {
                     string getDataSql = "SELECT GROUP_CONCAT(" + field + ") FROM " + table + "";
                     MySqlDataReader data = Select(database, getDataSql);
-
                     dataList.Add(data[0].ToString().Split(','));
                 }
                 finally
@@ -181,8 +178,22 @@ namespace Tarim_test
             }
             return dataList;
         }
+        private string[] GetFiledDatas(string database, string field, string table)
+        {
+            try
+            {
+                string getDataSql = "SELECT GROUP_CONCAT(" + field + ") FROM " + table + "";
+                MySqlDataReader data = Select(database, getDataSql);
+                return data[0].ToString().Split(',');
+            }
+            finally
+            {
+                CloseConnection();
+            }
 
-        private DataSet GetTableData(string database,string table)
+
+        }
+        private DataSet GetTableData(string database, string table)
         {
             MySqlConnectionStringBuilder sqlstring = new MySqlConnectionStringBuilder
             {
@@ -207,7 +218,7 @@ namespace Tarim_test
     }
     public partial class Navicat : Form
     {
-        #region 操作数据库
+        #region 数据库树状结构
         private void PaintTreeView()
         {
             try
@@ -243,6 +254,41 @@ namespace Tarim_test
             for (int j = 0; j < tableNodescount; j++)
             {
                 treeNode.Nodes.Add(tableNodes[j]);
+                if (database == "tarim")
+                {
+                    GetTarimFiledNode(treeNode.Nodes[j], database, tableNodes[j]);
+                }
+            }
+            return true;
+        }
+        private bool GetTarimFiledNode(TreeNode treeNode, string database, string table)
+        {
+            string[] filedNodes = GetField(database, table);
+            int filedNodescount = filedNodes.Count();//获得table对象数量
+
+            if (filedNodescount == 0)
+            { return false; }
+
+            //循环文件,不要第一个字段名
+            for (int j = 1; j < filedNodescount; j++)
+            {
+                treeNode.Nodes.Add(filedNodes[j]);
+                GetTarimDataNode(treeNode.Nodes[j-1], database, filedNodes[0], table);
+            }
+            return true;
+        }
+        private bool GetTarimDataNode(TreeNode treeNode, string database, string filed, string table)
+        {
+            string[] DatadNodes = GetFiledDatas(database, filed, table);
+            int DatadNodescount = DatadNodes.Count();//获得table对象数量
+
+            if (DatadNodescount == 0)
+            { return false; }
+
+            //循环文件,不要第一个字段名
+            for (int j = 0; j < DatadNodescount; j++)
+            {
+                treeNode.Nodes.Add(DatadNodes[j]);
             }
             return true;
         }
