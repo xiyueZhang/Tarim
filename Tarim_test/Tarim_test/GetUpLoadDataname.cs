@@ -20,8 +20,11 @@ namespace Tarim_test
         {
 
         }
-        public static void GetUplodDataPath()
+        //一次传入一台设备的信息
+        public static string[]  GetUplodDataPath(string[] fileName,string[] Databasetag)
         {
+            var diffArr = fileName.Where(c => !Databasetag.Contains(c)).ToArray();
+            return diffArr;
 
         }
     }

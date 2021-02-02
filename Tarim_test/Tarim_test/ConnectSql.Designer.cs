@@ -48,6 +48,7 @@
             this.DatabaseULR.Size = new System.Drawing.Size(316, 35);
             this.DatabaseULR.TabIndex = 0;
             this.DatabaseULR.Text = "8.131.51.44";
+            this.DatabaseULR.Visible = false;
             // 
             // DatabaseName
             // 
@@ -56,6 +57,7 @@
             this.DatabaseName.Size = new System.Drawing.Size(316, 35);
             this.DatabaseName.TabIndex = 2;
             this.DatabaseName.Text = "root";
+            this.DatabaseName.Visible = false;
             // 
             // DatabasePassword
             // 
@@ -64,6 +66,7 @@
             this.DatabasePassword.Size = new System.Drawing.Size(316, 35);
             this.DatabasePassword.TabIndex = 3;
             this.DatabasePassword.Text = "root";
+            this.DatabasePassword.Visible = false;
             // 
             // ConnectDBbutton
             // 

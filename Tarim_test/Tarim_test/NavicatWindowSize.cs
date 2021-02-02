@@ -19,7 +19,7 @@ namespace Tarim_test
                 GridDdatalabel.Location = new System.Drawing.Point(10, Size.Height - 60);
                 MySQLdataGridView.Size = new System.Drawing.Size(Size.Width - this.MySQLdataGridView.Location.X - 20,
                     Size.Height - MySQLdataGridView.Location.Y - 60);
-                NavicattreeView.Size = new System.Drawing.Size(380, Size.Height - NavicattreeView.Location.Y - 60);
+                NavicattreeView.Size = new System.Drawing.Size(200, Size.Height - NavicattreeView.Location.Y - 60);
             }
             catch
             {

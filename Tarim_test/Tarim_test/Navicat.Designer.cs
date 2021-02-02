@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.NavicattreeView = new System.Windows.Forms.TreeView();
             this.MySQLdataGridView = new System.Windows.Forms.DataGridView();
             this.GridDdatalabel = new System.Windows.Forms.Label();
@@ -37,8 +43,13 @@
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UploadDataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DownloadDataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DebugButton = new System.Windows.Forms.Button();
+            this.Friqueenchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.Timechart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.MySQLdataGridView)).BeginInit();
             this.NavicatStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Friqueenchart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Timechart)).BeginInit();
             this.SuspendLayout();
             // 
             // NavicattreeView
@@ -71,7 +82,7 @@
             // 
             // CreateDatabasebutton
             // 
-            this.CreateDatabasebutton.Location = new System.Drawing.Point(23, 71);
+            this.CreateDatabasebutton.Location = new System.Drawing.Point(23, 51);
             this.CreateDatabasebutton.Name = "CreateDatabasebutton";
             this.CreateDatabasebutton.Size = new System.Drawing.Size(161, 40);
             this.CreateDatabasebutton.TabIndex = 5;
@@ -81,7 +92,7 @@
             // 
             // CreateTablebutton
             // 
-            this.CreateTablebutton.Location = new System.Drawing.Point(224, 71);
+            this.CreateTablebutton.Location = new System.Drawing.Point(220, 51);
             this.CreateTablebutton.Name = "CreateTablebutton";
             this.CreateTablebutton.Size = new System.Drawing.Size(170, 40);
             this.CreateTablebutton.TabIndex = 6;
@@ -123,11 +134,58 @@
             this.DownloadDataMenuItem.Text = "下载数据";
             this.DownloadDataMenuItem.Click += new System.EventHandler(this.DownloadDataMenuItem_Click);
             // 
+            // DebugButton
+            // 
+            this.DebugButton.Location = new System.Drawing.Point(113, 117);
+            this.DebugButton.Name = "DebugButton";
+            this.DebugButton.Size = new System.Drawing.Size(185, 44);
+            this.DebugButton.TabIndex = 8;
+            this.DebugButton.Text = "测试按键";
+            this.DebugButton.UseVisualStyleBackColor = true;
+            this.DebugButton.Click += new System.EventHandler(this.DebugButton_Click);
+            // 
+            // Friqueenchart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.Friqueenchart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.Friqueenchart.Legends.Add(legend1);
+            this.Friqueenchart.Location = new System.Drawing.Point(458, 31);
+            this.Friqueenchart.Name = "Friqueenchart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "频域图";
+            this.Friqueenchart.Series.Add(series1);
+            this.Friqueenchart.Size = new System.Drawing.Size(1238, 541);
+            this.Friqueenchart.TabIndex = 9;
+            this.Friqueenchart.Text = "频域图";
+            // 
+            // Timechart
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.Timechart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.Timechart.Legends.Add(legend2);
+            this.Timechart.Location = new System.Drawing.Point(459, 588);
+            this.Timechart.Name = "Timechart";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "时域图";
+            this.Timechart.Series.Add(series2);
+            this.Timechart.Size = new System.Drawing.Size(1236, 554);
+            this.Timechart.TabIndex = 10;
+            this.Timechart.Text = "时域图";
+            // 
             // Navicat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1704, 1194);
+            this.Controls.Add(this.Timechart);
+            this.Controls.Add(this.Friqueenchart);
+            this.Controls.Add(this.DebugButton);
             this.Controls.Add(this.CreateTablebutton);
             this.Controls.Add(this.CreateDatabasebutton);
             this.Controls.Add(this.GridDdatalabel);
@@ -142,6 +200,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.MySQLdataGridView)).EndInit();
             this.NavicatStrip.ResumeLayout(false);
             this.NavicatStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Friqueenchart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Timechart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +218,8 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UploadDataMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DownloadDataMenuItem;
+        private System.Windows.Forms.Button DebugButton;
+        private System.Windows.Forms.DataVisualization.Charting.Chart Friqueenchart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart Timechart;
     }
 }

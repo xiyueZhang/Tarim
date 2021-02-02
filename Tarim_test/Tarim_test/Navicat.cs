@@ -31,6 +31,8 @@ namespace Tarim_test
             AptWindowSize();
             //加载库名
             PaintTreeView();
+            Friqueenchart.Visible = false;
+            Timechart.Visible = false;
         }
 
         private void NavicattreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -51,17 +53,23 @@ namespace Tarim_test
 
                 DataSet ds = GetTableData(datapath.DatabaseName, datapath.TableName);
                 MySQLdataGridView.DataSource = ds.Tables[0];
+                MySQLdataGridView.Visible = true;
+                Friqueenchart.Visible = false ;
+                Timechart.Visible = false;
             }
             if (e.Node.Level == 3)
             {
                 string path = e.Node.FullPath;
                 string[] fullpath = path.Split('\\');
-                MessageBox.Show(path);
                 int pathLen = fullpath.Count();
                 datapath.IDName = fullpath[pathLen - 1];
                 datapath.FieldName = fullpath[pathLen - 2];
                 datapath.TableName = fullpath[pathLen - 3];
                 datapath.DatabaseName = fullpath[pathLen - 4];
+                MySQLdataGridView.Hide();
+                Friqueenchart.Visible = true;
+                Timechart.Visible = true;
+                NavicatDrawMap("E:\\临时软件\\chun\\2021.txt");
             }
 
         }
@@ -118,6 +126,11 @@ namespace Tarim_test
             {
                 GridDdatalabel.Text = "数据插入失败";
             }
+        }
+
+        private void DebugButton_Click(object sender, EventArgs e)
+        {
+            // GetTableFieldTime("丙烷机");
         }
 
         private void DownloadDataMenuItem_Click(object sender, EventArgs e)

@@ -64,7 +64,18 @@ namespace Tarim_test
                 Database = DatabasName,
                 CharacterSet = "utf8"
             };
-            string createStatement = "CREATE TABLE "+ TableName + " (time VarChar(50))";
+            //创建外键，每个表的外键名称必须不一样2021.2.2，调试debug结果。
+            string createStatement = "CREATE TABLE " +
+                TableName +
+                " (" +
+                "time VarChar(50),"+
+                "district VarChar(50)," +
+                "location VarChar(50)," +
+                "CONSTRAINT fk_" + TableName +
+                "_district FOREIGN KEY(district) REFERENCES tarim_area(District)," +
+                "CONSTRAINT fk_" + TableName +
+                "_location FOREIGN KEY(location) REFERENCES tarim_area(District)" +
+                ")";
             string alterStatement = columnName;
 
             using (MySqlConnection conn = new MySqlConnection(sqlstring.ConnectionString))
@@ -87,8 +98,9 @@ namespace Tarim_test
                     }
                     GridDdatalabel.Text= "建表成功";
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                     GridDdatalabel.Text="建表失败，已存在";
                 }
                 //防止第二次启动时再次新建数据表
@@ -149,7 +161,6 @@ namespace Tarim_test
             }
             //删去最后的一个逗号
             FiledsName = FiledsName.Substring(0, FiledsName.Length - 1);
-            MessageBox.Show(FiledsName);
             return FiledsName;
         }
 
@@ -225,6 +236,17 @@ namespace Tarim_test
                 conn.Close();
             }
 
+        }
+
+        public string[] GetTableFieldTime(string tablename)
+        {
+            string[] AllTime=GetFiledDatas("tarim", "time", tablename);
+            for(int i=0;i< AllTime.Length;i++ )
+            {
+                AllTime[i] = tablename + "\\" + AllTime[i];
+            }
+            
+            return AllTime;
         }
         #endregion
 
