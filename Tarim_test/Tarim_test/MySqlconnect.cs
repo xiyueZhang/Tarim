@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -193,6 +194,61 @@ namespace Tarim_test
 
 
         }
+        private string[] GetDistricts(string database, string field, string table)
+        {
+            try
+            {
+                string getDataSql = "SELECT GROUP_CONCAT(" + field + ") FROM " + table + " WHERE level=1 ";
+                MySqlDataReader data = Select(database, getDataSql);
+                return data[0].ToString().Split(',');
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        private string[] GetLocation(string database, string field, string table, string district)
+        {
+            try
+            {
+                //where 条件当有中文时要额外的引号
+                string getdistrictIDSql = "SELECT GROUP_CONCAT(id) FROM " + table + " WHERE District=\""+ district +"\"";
+                MySqlDataReader districtID = Select(database, getdistrictIDSql);
+                //MessageBox.Show(districtID[0].ToString());
+                string getDataSql = "SELECT GROUP_CONCAT(" + field + ") FROM " + table + " WHERE parent_id=" + districtID[0] + " ";
+                MySqlDataReader data = Select(database, getDataSql);
+                return data[0].ToString().Split(',');
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        private bool CheckMachine(string database, string table, string location, string district)
+        {
+            try
+            {
+                //where 条件当有中文时要额外的引号
+                string getdistrictIDSql = "SELECT * FROM " + table + " WHERE location=\"" + location + "\"";
+                MySqlDataReader districtID = Select(database, getdistrictIDSql);
+                if (districtID[0].ToString().Split(',') != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
         private DataSet GetTableData(string database, string table)
         {
             MySqlConnectionStringBuilder sqlstring = new MySqlConnectionStringBuilder
@@ -232,8 +288,16 @@ namespace Tarim_test
                 //循环database
                 for (int i = 0; i < nodecount; i++)
                 {
-                    NavicattreeView.Nodes.Add(DatabaseNodes[i]);
-                    GetMultiNode(NavicattreeView.Nodes[i], DatabaseNodes[i]);
+                    if(DatabaseNodes[i]!="tarim")
+                    {
+                        NavicattreeView.Nodes.Add(DatabaseNodes[i]);
+                        GetMultiNode(NavicattreeView.Nodes[i], DatabaseNodes[i]);
+                    }
+                    else
+                    {
+                        NavicattreeView.Nodes.Add(DatabaseNodes[i]);
+                        GetTarimDistrictNode(NavicattreeView.Nodes[i], DatabaseNodes[i]);
+                    }
                 }
             }
             catch (Exception ex)
@@ -254,14 +318,72 @@ namespace Tarim_test
             for (int j = 0; j < tableNodescount; j++)
             {
                 treeNode.Nodes.Add(tableNodes[j]);
-                if (database == "tarim")
-                {
-                    GetTarimFiledNode(treeNode.Nodes[j], database, tableNodes[j]);
-                }
+                //if (database == "tarim")
+                //{
+                //    GetTarimFiledNode(treeNode.Nodes[j], database, tableNodes[j]);
+                //}
             }
             return true;
         }
-        private bool GetTarimFiledNode(TreeNode treeNode, string database, string table)
+        private bool GetTarimDistrictNode(TreeNode treeNode, string database)
+        {
+            string[] DistrictNodes = GetDistricts(database,"District","tarim_area");
+            int DistrictNodescount = DistrictNodes.Count();//获得table对象数量
+
+            if (DistrictNodescount == 0)
+            { return false; }
+
+            //循环文件
+            for (int j = 0; j < DistrictNodescount; j++)
+            {
+                treeNode.Nodes.Add(DistrictNodes[j]);
+                GetLocationNode(treeNode.Nodes[j], database, DistrictNodes[j]);
+
+            }
+            return true;
+        }
+        private bool GetLocationNode(TreeNode treeNode, string database, string district)
+        {
+            string[] LocationNodes = GetLocation(database, "District", "tarim_area", district);
+            int LocationNodescount = LocationNodes.Count();//获得table对象数量
+
+            if (LocationNodescount == 0)
+            { return false; }
+
+            //循环文件
+            for (int j = 0; j < LocationNodescount; j++)
+            {
+                treeNode.Nodes.Add(LocationNodes[j]);
+                GetTarimMachineNode(treeNode.Nodes[j], database, LocationNodes[j], district);
+
+            }
+            return true;
+        }
+        private bool GetTarimMachineNode(TreeNode treeNode, string database, string location, string district)
+        {
+            string[] tableNodes = GetTables(database);
+            int tableNodescount = tableNodes.Count();
+            
+            ArrayList arr = new ArrayList(tableNodes);
+           // MessageBox.Show(arr.IndexOf("tarim_area").ToString());
+            arr.RemoveAt(arr.IndexOf("tarim_area"));
+            tableNodes = (string[])arr.ToArray(typeof(string));
+            tableNodescount = tableNodes.Count();
+            //MessageBox.Show(tableNodescount.ToString());
+            if (tableNodescount == 0)
+            { return false; }
+            for (int j = 0; j < tableNodescount; j++)
+            {
+                if(CheckMachine(database, tableNodes[j], location, district))
+                {
+                    treeNode.Nodes.Add(tableNodes[j]);
+                    //第一个表没数据，导致匹配不上需要减一 
+                    GetTestPointNode(treeNode.Nodes[j], database, tableNodes[j]);
+                }  
+            }
+            return true;
+        }
+        private bool GetTestPointNode(TreeNode treeNode, string database, string table)
         {
             string[] filedNodes = GetField(database, table);
             int filedNodescount = filedNodes.Count();//获得table对象数量
@@ -270,28 +392,28 @@ namespace Tarim_test
             { return false; }
 
             //循环文件,不要第一个字段名
-            for (int j = 1; j < filedNodescount; j++)
+            for (int j = 3; j < filedNodescount; j++)
             {
                 treeNode.Nodes.Add(filedNodes[j]);
-                GetTarimDataNode(treeNode.Nodes[j-1], database, filedNodes[0], table);
+                //GetTarimDataNode(treeNode.Nodes[j - 3], database, filedNodes[0], table);
             }
             return true;
         }
-        private bool GetTarimDataNode(TreeNode treeNode, string database, string filed, string table)
-        {
-            string[] DatadNodes = GetFiledDatas(database, filed, table);
-            int DatadNodescount = DatadNodes.Count();//获得table对象数量
+        //private bool GetTarimDataNode(TreeNode treeNode, string database, string filed, string table)
+        //{
+        //    string[] DatadNodes = GetFiledDatas(database, filed, table);
+        //    int DatadNodescount = DatadNodes.Count();//获得table对象数量
 
-            if (DatadNodescount == 0)
-            { return false; }
+        //    if (DatadNodescount == 0)
+        //    { return false; }
 
-            //循环文件,不要第一个字段名
-            for (int j = 0; j < DatadNodescount; j++)
-            {
-                treeNode.Nodes.Add(DatadNodes[j]);
-            }
-            return true;
-        }
+        //    //循环文件,不要第一个字段名
+        //    for (int j = 0; j < DatadNodescount; j++)
+        //    {
+        //        treeNode.Nodes.Add(DatadNodes[j]);
+        //    }
+        //    return true;
+        //}
         #endregion
     }
 }

@@ -187,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Tarim.exe" size="107424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Tarim.exe" size="108960">
       <assemblyIdentity name="Tarim" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HqWQCDKnWBI2Zd8L1vyNL6Py0I3O+nq+7xhQGgNEkEY=</dsig:DigestValue>
+        <dsig:DigestValue>eOkAWId0aL/YtLhAub+xOoWsLRWCjc56/7aDM68l+Pg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
