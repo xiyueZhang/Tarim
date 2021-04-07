@@ -59,17 +59,27 @@ namespace Tarim_test
             }
             if (e.Node.Level == 3)
             {
-                string path = e.Node.FullPath;
-                string[] fullpath = path.Split('\\');
-                int pathLen = fullpath.Count();
-                datapath.IDName = fullpath[pathLen - 1];
-                datapath.FieldName = fullpath[pathLen - 2];
-                datapath.TableName = fullpath[pathLen - 3];
-                datapath.DatabaseName = fullpath[pathLen - 4];
+                //string path = e.Node.FullPath;
+                //string[] fullpath = path.Split('\\');
+                //int pathLen = fullpath.Count();
+                //datapath.IDName = fullpath[pathLen - 1];
+                //datapath.FieldName = fullpath[pathLen - 2];
+                //datapath.TableName = fullpath[pathLen - 3];
+                //datapath.DatabaseName = fullpath[pathLen - 4];
                 MySQLdataGridView.Hide();
                 Friqueenchart.Visible = true;
                 Timechart.Visible = true;
-                NavicatDrawMap("E:\\临时软件\\chun\\2021.txt");
+                string Path = "E:\\临时软件";
+                OpenFileDialog FilePath = new OpenFileDialog
+                //FolderBrowserDialog FilePath = new FolderBrowserDialog
+                {
+                    //Description = "请选择包含数据存储路径"
+                };
+                if (FilePath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Path = FilePath.FileName;
+                }
+                NavicatDrawMap(Path);
             }
 
         }

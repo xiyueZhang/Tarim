@@ -46,6 +46,9 @@
             this.DebugButton = new System.Windows.Forms.Button();
             this.Friqueenchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Timechart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.创建数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.数据建立ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出连接ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.MySQLdataGridView)).BeginInit();
             this.NavicatStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Friqueenchart)).BeginInit();
@@ -63,10 +66,10 @@
             // MySQLdataGridView
             // 
             this.MySQLdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MySQLdataGridView.Location = new System.Drawing.Point(448, 24);
+            this.MySQLdataGridView.Location = new System.Drawing.Point(448, 29);
             this.MySQLdataGridView.Name = "MySQLdataGridView";
             this.MySQLdataGridView.RowTemplate.Height = 37;
-            this.MySQLdataGridView.Size = new System.Drawing.Size(1249, 1119);
+            this.MySQLdataGridView.Size = new System.Drawing.Size(1249, 1114);
             this.MySQLdataGridView.TabIndex = 1;
             this.MySQLdataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MySQLdataGridView_CellClick);
             // 
@@ -104,7 +107,10 @@
             // 
             this.NavicatStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.NavicatStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem});
+            this.ToolStripMenuItem,
+            this.创建数据库ToolStripMenuItem,
+            this.数据建立ToolStripMenuItem,
+            this.退出连接ToolStripMenuItem});
             this.NavicatStrip.Location = new System.Drawing.Point(0, 0);
             this.NavicatStrip.Name = "NavicatStrip";
             this.NavicatStrip.Size = new System.Drawing.Size(1704, 39);
@@ -123,14 +129,14 @@
             // UploadDataMenuItem
             // 
             this.UploadDataMenuItem.Name = "UploadDataMenuItem";
-            this.UploadDataMenuItem.Size = new System.Drawing.Size(208, 38);
+            this.UploadDataMenuItem.Size = new System.Drawing.Size(324, 38);
             this.UploadDataMenuItem.Text = "上传数据";
             this.UploadDataMenuItem.Click += new System.EventHandler(this.UploadDataMenuItem_Click);
             // 
             // DownloadDataMenuItem
             // 
             this.DownloadDataMenuItem.Name = "DownloadDataMenuItem";
-            this.DownloadDataMenuItem.Size = new System.Drawing.Size(208, 38);
+            this.DownloadDataMenuItem.Size = new System.Drawing.Size(324, 38);
             this.DownloadDataMenuItem.Text = "下载数据";
             this.DownloadDataMenuItem.Click += new System.EventHandler(this.DownloadDataMenuItem_Click);
             // 
@@ -150,14 +156,14 @@
             this.Friqueenchart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.Friqueenchart.Legends.Add(legend1);
-            this.Friqueenchart.Location = new System.Drawing.Point(458, 31);
+            this.Friqueenchart.Location = new System.Drawing.Point(458, 42);
             this.Friqueenchart.Name = "Friqueenchart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "频域图";
             this.Friqueenchart.Series.Add(series1);
-            this.Friqueenchart.Size = new System.Drawing.Size(1238, 541);
+            this.Friqueenchart.Size = new System.Drawing.Size(1238, 530);
             this.Friqueenchart.TabIndex = 9;
             this.Friqueenchart.Text = "频域图";
             // 
@@ -177,6 +183,24 @@
             this.Timechart.Size = new System.Drawing.Size(1236, 554);
             this.Timechart.TabIndex = 10;
             this.Timechart.Text = "时域图";
+            // 
+            // 创建数据库ToolStripMenuItem
+            // 
+            this.创建数据库ToolStripMenuItem.Name = "创建数据库ToolStripMenuItem";
+            this.创建数据库ToolStripMenuItem.Size = new System.Drawing.Size(146, 35);
+            this.创建数据库ToolStripMenuItem.Text = "创建数据库";
+            // 
+            // 数据建立ToolStripMenuItem
+            // 
+            this.数据建立ToolStripMenuItem.Name = "数据建立ToolStripMenuItem";
+            this.数据建立ToolStripMenuItem.Size = new System.Drawing.Size(122, 35);
+            this.数据建立ToolStripMenuItem.Text = "数据建立";
+            // 
+            // 退出连接ToolStripMenuItem
+            // 
+            this.退出连接ToolStripMenuItem.Name = "退出连接ToolStripMenuItem";
+            this.退出连接ToolStripMenuItem.Size = new System.Drawing.Size(122, 35);
+            this.退出连接ToolStripMenuItem.Text = "退出连接";
             // 
             // Navicat
             // 
@@ -221,5 +245,8 @@
         private System.Windows.Forms.Button DebugButton;
         private System.Windows.Forms.DataVisualization.Charting.Chart Friqueenchart;
         private System.Windows.Forms.DataVisualization.Charting.Chart Timechart;
+        private System.Windows.Forms.ToolStripMenuItem 创建数据库ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 数据建立ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 退出连接ToolStripMenuItem;
     }
 }

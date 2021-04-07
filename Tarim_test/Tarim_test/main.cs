@@ -34,17 +34,31 @@ namespace Tarim_test
 
         private void Make_TreeList_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog FilePath = new FolderBrowserDialog
+            try
             {
-                Description = "请选择包含数据存储路径"
-            };
-            if (FilePath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                path = FilePath.SelectedPath; 
+                try
+                {
+                    PaintTreeView("F:\\Tarim");
+                }
+                catch
+                {
+                    PaintTreeView("G:\\Tarim");
+                }
             }
-            _GetButtonPath = DataPath.VIBMACHINE;
-            PaintTreeView(path);
+            catch
 
+            {
+                FolderBrowserDialog FilePath = new FolderBrowserDialog
+                {
+                    Description = "请选择包含数据存储路径"
+                };
+                if (FilePath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    path = FilePath.SelectedPath;
+                }
+                _GetButtonPath = DataPath.VIBMACHINE;
+                PaintTreeView(path);
+            }
 
         }
 
@@ -77,7 +91,7 @@ namespace Tarim_test
             }
             else
             {
-                InfoShow.Text = path + "\\" + e.Node.FullPath + "不是txt文件";
+                InfoShow.Text = path + "\\" + e.Node.FullPath + "不是数据文件";
             }
         }
 
@@ -121,6 +135,7 @@ namespace Tarim_test
         {
             ConnectSql connectSql = new ConnectSql();
             connectSql.Show();
+            InfoShow.Text = "连接数据库中";
         }
     }
 }

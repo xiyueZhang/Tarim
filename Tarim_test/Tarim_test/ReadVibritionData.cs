@@ -18,6 +18,7 @@ namespace Tarim_test
         {
             //Double[] arrX;
             Double[] arrY;
+            Double[] Vib_array;
 
             arrY = DataCpature.VibMachineData(FilePath);
             if(arrY == null)
@@ -27,7 +28,10 @@ namespace Tarim_test
             else
             {
                 int len = arrY.Length;           //算该字符串的长度
-
+                List<double> list = arrY.ToList();
+                list.RemoveAt(len-1);
+                Vib_array = list.ToArray();
+                len = Vib_array.Length;
                 double[] sx = new double[len];
                 Fourier.Spectrum(arrY, sx, len);
 
@@ -44,6 +48,8 @@ namespace Tarim_test
                     double xLable = Convert.ToDouble((j * 64 * 1024) / (double)len);
                     TimeDemo.Series[0].Points.AddY(arrY[j]);
                 }
+                double Temp = arrY[len];
+                Tempreture.Text = "温度：" + Temp.ToString ("#0.00") + "℃";
                 return true;
             }
 
